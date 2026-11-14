@@ -46,7 +46,7 @@ Exit codes: `0` diagnosed, `1` unknown, `2` bad input.
 | Stage | File | Job |
 |---|---|---|
 | Ingest | `ingest.py` | Strip ANSI, timestamps and CI prefixes. Keep line numbers. Detect provider. |
-| Classify | `classifier.py`, `rules.py` | Weighted regex rules score 7 categories: auth, dependency, build, test, config, infra, rollout. |
+| Classify | `classifier.py`, `rules.py` | Weighted regex rules score 8 categories: auth, dependency, build, lint, test, config, infra, rollout. |
 | Extract | `entities.py` | Pull names (env var, package, image, test, lock ID) from the log. |
 | Propose | `fixes.py` | Fill fix templates with those names, rank by fit x category share, keep 3. |
 | Report | `report.py`, `cli.py` | Text, JSON or Markdown. |
@@ -57,14 +57,15 @@ A log that matches nothing returns `unknown` and no fixes. It does not guess.
 
 - This is a **proof of concept**: rule-based, offline, deterministic.
 - `samples/` (11 logs) and `samples/holdout/` (7 logs, one of them this project's own real CI failure) are labelled in `expected.json` and all pass. I wrote them, so treat that as a smoke test and not a benchmark. Real-world accuracy is unknown.
-- **Real-log check:** I ran it on 20 recent failed GitHub Actions logs from public repos (flask, requests, pytest, django, numpy, pandas, react). It returned `unknown` for 14 and a diagnosis for 6. Many of the 14 are lint, format or type-check failures (flake8, isort, ruff, mypy), which no rule covers yet. I did not hand-verify the 6, so there is no accuracy number. Coverage on real logs is low, and that is the next thing to fix.
+- **Real-log check:** the first time I ran it on 20 recent failed GitHub Actions logs from public repos (flask, requests, pytest, django, numpy, pandas, react), it returned `unknown` for 14. Many of those were lint, format or type-check failures, so I added a `lint` category and a rule for warnings promoted to errors.
+- **Real logs now in the repo:** `samples/real/` holds 3 of those failed runs (flask, pandas, requests), each labelled by reading the log and trimmed to the failing step (the setup and checkout lines are cut). All 3 are diagnosed correctly: a `ruff format` rewrite, a mypy/pyright type error at `pandas/core/base.py:1002`, and a `DeprecationWarning` that pytest turns into an error. **These are the logs I wrote the new rules against, so they prove the rules work on them, not that coverage has improved.** I have not re-run the other 17, so the 20-log coverage number is still the old one.
 - Diffs are **templates** with placeholders (for example `<ACCOUNT_ID>`). They are not patches against your real files.
 - Confidence is match strength, capped at 95%. It is not a probability.
 - Fixes are proposals. Nothing is applied automatically. Each carries a risk level.
 
 ## Roadmap
 
-1. Collect and label 100+ real failed logs, then measure the top-3 hit rate. Add a `gh run view --log-failed` fetcher.
+1. Collect and label 100+ real failed logs, keep a part of them unseen while writing rules, then measure the top-3 hit rate. Add a `gh run view --log-failed` fetcher.
 2. LLM fallback for low-confidence logs, and diffs generated from the user's real files.
 3. GitHub Action that comments on failed runs, with an optional human-approved fix PR.
 4. GitLab, Jenkins and CircleCI adapters.

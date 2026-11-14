@@ -289,7 +289,57 @@ def build_toolchain(tags, ctx):
     )
 
 
+# --------------------------------------------------------------------- lint
+def lint_format(tags, ctx):
+    if "format" not in tags:
+        return None
+    hook = ctx.get("hook", "the formatter")
+    return _fix(
+        "lint", f"Run `{hook}` locally and commit what it changes",
+        "The formatter rewrote files in CI, which counts as a failure. Run the same hook on your machine, "
+        "review the diff, and commit it.",
+        "low", 0.95, command="pre-commit run --all-files && git add -u && git commit -m 'Apply formatter'",
+    )
+
+
+def lint_types(tags, ctx):
+    if "types" not in tags:
+        return None
+    where = f"{ctx['type_file']}:{ctx['type_line']}" if "type_file" in ctx else "the reported line"
+    msg = ctx.get("type_msg", "type error")
+    return _fix(
+        "lint", f"Fix the type error at {where}",
+        f"The type checker reports: {msg}. Narrow the type at the source instead of adding `# type: ignore`.",
+        "low", 0.85, command=f"mypy {ctx.get('type_file', '.')}  # then open {where}",
+    )
+
+
+def lint_precommit_local(tags, ctx):
+    fit = 0.6 if "precommit" in tags else 0.3
+    return _fix(
+        "lint", "Install the pre-commit hook so this fails before the push",
+        "These checks run the same way locally. Installing the git hook catches them at commit time.",
+        "low", fit, command="pre-commit install",
+    )
+
+
 # --------------------------------------------------------------------- test
+def test_warning_filter(tags, ctx):
+    if "warning_error" not in tags:
+        return None
+    cls = ctx.get("warning_class", "DeprecationWarning")
+    msg = ctx.get("warning_msg", "")
+    note = f" The warning is: {msg}" if msg else ""
+    return _fix(
+        "test", f"Stop `{cls}` from failing the run while you migrate",
+        "pytest is configured to turn warnings into errors, so a deprecation in a dependency "
+        "(here a development build) fails the suite before any test runs." + note,
+        "low", 0.9, file="pyproject.toml",
+        before='[tool.pytest.ini_options]\nfilterwarnings = [\n    "error",\n]',
+        after='[tool.pytest.ini_options]\nfilterwarnings = [\n    "error",\n    "default::' + cls + '",\n]',
+    )
+
+
 def test_retry(tags, ctx):
     fit = 0.85 if "flaky" in tags else 0.3
     name = ctx.get("test_name", "")
@@ -585,7 +635,8 @@ TEMPLATES: Dict[str, List[Template]] = {
     "auth": [auth_oidc, auth_iam, auth_gh_perms, auth_registry, auth_rotate],
     "dependency": [dep_peer, dep_legacy_peer, dep_lockfile, dep_py_module, dep_node_module, dep_pip_pin, dep_maven, dep_cache],
     "build": [build_ts, build_ts_pin, build_docker, build_toolchain],
-    "test": [test_retry, test_timeout, test_port, test_quarantine],
+    "lint": [lint_format, lint_types, lint_precommit_local],
+    "test": [test_warning_filter, test_retry, test_timeout, test_port, test_quarantine],
     "config": [cfg_env, cfg_set_secret, cfg_yaml, cfg_tf, cfg_example],
     "infra": [infra_oom, infra_bigger_runner, infra_disk, infra_ratelimit, infra_retry, infra_runner_pin, infra_bump_version, infra_tflock],
     "rollout": [roll_imagepull, roll_verify_image, roll_crashloop, roll_probe, roll_atomic, roll_resources],

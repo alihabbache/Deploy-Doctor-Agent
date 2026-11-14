@@ -28,6 +28,9 @@ PATTERNS: List[Tuple[str, str]] = [
     ("port", r"EADDRINUSE[^\d]*(\d{2,5})"),
     ("port", r"Address already in use.*?:(\d{2,5})"),
     ("ts_error", r"(\S+\.tsx?)\((\d+),\d+\): error (TS\d+): (.+)"),
+    ("hook", r"^([\w .\-]+?)\.{4,}\s*Failed$"),
+    ("type_error", r"^(\S+\.pyi?):(\d+)(?::\d+)?(?: -|:) error: (.+)"),
+    ("warning", r"^E\s+(\w*Warning): (.+)"),
     ("lock_id", r"\bID:\s+([0-9a-f]{8}-[0-9a-f-]{27})"),
     ("exit_code", r"exit(?:ed with)? code[: ]+(\d+)"),
     ("timeout_ms", r"(?:Timeout of|exceeded timeout of) (\d+) ?ms"),
@@ -50,6 +53,11 @@ def extract(log: Log) -> Dict[str, str]:
                 found["tool_version"], found["runner_os"] = m.group(1), m.group(2)
             elif name == "resolving":
                 found["resolving"], found["resolving_ver"] = m.group(1), m.group(2)
+            elif name == "type_error":
+                path = re.sub(r"^/home/runner/work/[^/]+/[^/]+/", "", m.group(1))
+                found["type_file"], found["type_line"], found["type_msg"] = path, m.group(2), m.group(3)
+            elif name == "warning":
+                found["warning_class"], found["warning_msg"] = m.group(1), m.group(2)
             elif name == "ts_error":
                 found["ts_file"], found["ts_line"], found["ts_code"], found["ts_msg"] = m.groups()
                 found["ts_error"] = m.group(0)

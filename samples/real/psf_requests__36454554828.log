@@ -1,0 +1,98 @@
+lint	UNKNOWN STEP	2026-09-28T16:56:01.3778579Z ##[group]Run python -m pip install pre-commit==4.6.0
+lint	UNKNOWN STEP	2026-09-28T16:56:01.3778852Z ^[[36;1mpython -m pip install pre-commit==4.6.0^[[0m
+lint	UNKNOWN STEP	2026-09-28T16:56:01.3779313Z ^[[36;1mpre-commit run --show-diff-on-failure --color=always --all-files^[[0m
+lint	UNKNOWN STEP	2026-09-28T16:56:01.4312903Z shell: /usr/bin/bash -e {0}
+lint	UNKNOWN STEP	2026-09-28T16:56:01.4313074Z env:
+lint	UNKNOWN STEP	2026-09-28T16:56:01.4313245Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.7/x64
+lint	UNKNOWN STEP	2026-09-28T16:56:01.4313498Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.7/x64/lib/pkgconfig
+lint	UNKNOWN STEP	2026-09-28T16:56:01.4313762Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.7/x64
+lint	UNKNOWN STEP	2026-09-28T16:56:01.4313970Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.7/x64
+lint	UNKNOWN STEP	2026-09-28T16:56:01.4314180Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.7/x64
+lint	UNKNOWN STEP	2026-09-28T16:56:01.4314387Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.7/x64/lib
+lint	UNKNOWN STEP	2026-09-28T16:56:01.4314579Z ##[endgroup]
+lint	UNKNOWN STEP	2026-09-28T16:56:02.2849216Z Collecting pre-commit==4.6.0
+lint	UNKNOWN STEP	2026-09-28T16:56:02.3505396Z   Downloading pre_commit-4.6.0-py2.py3-none-any.whl.metadata (1.2 kB)
+lint	UNKNOWN STEP	2026-09-28T16:56:02.3754017Z Collecting cfgv>=2.0.0 (from pre-commit==4.6.0)
+lint	UNKNOWN STEP	2026-09-28T16:56:02.3876744Z   Downloading cfgv-3.5.0-py2.py3-none-any.whl.metadata (8.9 kB)
+lint	UNKNOWN STEP	2026-09-28T16:56:02.4219367Z Collecting identify>=1.0.0 (from pre-commit==4.6.0)
+lint	UNKNOWN STEP	2026-09-28T16:56:02.4339303Z   Downloading identify-2.6.20-py2.py3-none-any.whl.metadata (4.4 kB)
+lint	UNKNOWN STEP	2026-09-28T16:56:02.4574887Z Collecting nodeenv>=0.11.1 (from pre-commit==4.6.0)
+lint	UNKNOWN STEP	2026-09-28T16:56:02.4695524Z   Downloading nodeenv-1.11.0-py2.py3-none-any.whl.metadata (40 kB)
+lint	UNKNOWN STEP	2026-09-28T16:56:02.5176827Z Collecting pyyaml>=5.1 (from pre-commit==4.6.0)
+lint	UNKNOWN STEP	2026-09-28T16:56:02.5299515Z   Downloading pyyaml-6.0.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+lint	UNKNOWN STEP	2026-09-28T16:56:02.5634338Z Collecting virtualenv>=20.10.0 (from pre-commit==4.6.0)
+lint	UNKNOWN STEP	2026-09-28T16:56:02.5753710Z   Downloading virtualenv-21.13.0-py3-none-any.whl.metadata (3.9 kB)
+lint	UNKNOWN STEP	2026-09-28T16:56:02.5964036Z Collecting distlib<1,>=0.3.7 (from virtualenv>=20.10.0->pre-commit==4.6.0)
+lint	UNKNOWN STEP	2026-09-28T16:56:02.6091313Z   Downloading distlib-0.4.3-py2.py3-none-any.whl.metadata (5.3 kB)
+lint	UNKNOWN STEP	2026-09-28T16:56:02.6334418Z Collecting filelock<5,>=3.24.2 (from virtualenv>=20.10.0->pre-commit==4.6.0)
+lint	UNKNOWN STEP	2026-09-28T16:56:02.6454769Z   Downloading filelock-4.0.5-py3-none-any.whl.metadata (2.0 kB)
+lint	UNKNOWN STEP	2026-09-28T16:56:02.6726103Z Collecting platformdirs<5,>=3.9.1 (from virtualenv>=20.10.0->pre-commit==4.6.0)
+lint	UNKNOWN STEP	2026-09-28T16:56:02.6850098Z   Downloading platformdirs-4.12.1-py3-none-any.whl.metadata (5.5 kB)
+lint	UNKNOWN STEP	2026-09-28T16:56:02.7065478Z Collecting python-discovery>=1.6 (from virtualenv>=20.10.0->pre-commit==4.6.0)
+lint	UNKNOWN STEP	2026-09-28T16:56:02.7184978Z   Downloading python_discovery-1.6.1-py3-none-any.whl.metadata (5.1 kB)
+lint	UNKNOWN STEP	2026-09-28T16:56:02.7346557Z Downloading pre_commit-4.6.0-py2.py3-none-any.whl (226 kB)
+lint	UNKNOWN STEP	2026-09-28T16:56:02.7703240Z Downloading cfgv-3.5.0-py2.py3-none-any.whl (7.4 kB)
+lint	UNKNOWN STEP	2026-09-28T16:56:02.7839403Z Downloading identify-2.6.20-py2.py3-none-any.whl (99 kB)
+lint	UNKNOWN STEP	2026-09-28T16:56:02.8023863Z Downloading nodeenv-1.11.0-py2.py3-none-any.whl (34 kB)
+lint	UNKNOWN STEP	2026-09-28T16:56:02.8158610Z Downloading pyyaml-6.0.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (794 kB)
+lint	UNKNOWN STEP	2026-09-28T16:56:02.8445748Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 794.2/794.2 kB 33.2 MB/s  0:00:00
+lint	UNKNOWN STEP	2026-09-28T16:56:02.8571591Z Downloading virtualenv-21.13.0-py3-none-any.whl (5.5 MB)
+lint	UNKNOWN STEP	2026-09-28T16:56:02.9315373Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.5/5.5 MB 72.2 MB/s  0:00:00
+lint	UNKNOWN STEP	2026-09-28T16:56:02.9440076Z Downloading distlib-0.4.3-py2.py3-none-any.whl (470 kB)
+lint	UNKNOWN STEP	2026-09-28T16:56:02.9587421Z Downloading filelock-4.0.5-py3-none-any.whl (108 kB)
+lint	UNKNOWN STEP	2026-09-28T16:56:02.9735005Z Downloading platformdirs-4.12.1-py3-none-any.whl (33 kB)
+lint	UNKNOWN STEP	2026-09-28T16:56:02.9873677Z Downloading python_discovery-1.6.1-py3-none-any.whl (38 kB)
+lint	UNKNOWN STEP	2026-09-28T16:56:03.0418169Z Installing collected packages: distlib, pyyaml, platformdirs, nodeenv, identify, filelock, cfgv, python-discovery, virtualenv, pre-commit
+lint	UNKNOWN STEP	2026-09-28T16:56:03.4252245Z 
+lint	UNKNOWN STEP	2026-09-28T16:56:03.4263250Z Successfully installed cfgv-3.5.0 distlib-0.4.3 filelock-4.0.5 identify-2.6.20 nodeenv-1.11.0 platformdirs-4.12.1 pre-commit-4.6.0 python-discovery-1.6.1 pyyaml-6.0.3 virtualenv-21.13.0
+lint	UNKNOWN STEP	2026-09-28T16:56:03.6524311Z [INFO]^[[m Initializing environment for https://github.com/pre-commit/pre-commit-hooks.
+lint	UNKNOWN STEP	2026-09-28T16:56:04.0969192Z [INFO]^[[m Initializing environment for https://github.com/astral-sh/ruff-pre-commit.
+lint	UNKNOWN STEP	2026-09-28T16:56:04.4938914Z [INFO]^[[m Installing environment for https://github.com/pre-commit/pre-commit-hooks.
+lint	UNKNOWN STEP	2026-09-28T16:56:04.4939587Z [INFO]^[[m Once installed this environment will be reused.
+lint	UNKNOWN STEP	2026-09-28T16:56:04.4939799Z [INFO]^[[m This may take a few minutes...
+lint	UNKNOWN STEP	2026-09-28T16:56:07.2660792Z [INFO]^[[m Installing environment for https://github.com/astral-sh/ruff-pre-commit.
+lint	UNKNOWN STEP	2026-09-28T16:56:07.2661160Z [INFO]^[[m Once installed this environment will be reused.
+lint	UNKNOWN STEP	2026-09-28T16:56:07.2661412Z [INFO]^[[m This may take a few minutes...
+lint	UNKNOWN STEP	2026-09-28T16:56:09.8846078Z check for case conflicts.................................................^[[42mPassed^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:09.9521264Z check for merge conflicts................................................^[[42mPassed^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:09.9937114Z check toml...............................................................^[[42mPassed^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.0820932Z check yaml...............................................................^[[42mPassed^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.1411146Z fix end of files.........................................................^[[42mPassed^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.1978060Z mixed line ending........................................................^[[42mPassed^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.2551671Z trim trailing whitespace.................................................^[[42mPassed^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.2767667Z ruff check...............................................................^[[42mPassed^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.2986164Z ruff format..............................................................^[[41mFailed^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.2986492Z ^[[2m- hook id: ruff-format^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.2986674Z ^[[2m- files were modified by this hook^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.2986785Z 
+lint	UNKNOWN STEP	2026-09-28T16:56:10.2986855Z 2 files reformatted, 45 files left unchanged
+lint	UNKNOWN STEP	2026-09-28T16:56:10.2986963Z 
+lint	UNKNOWN STEP	2026-09-28T16:56:10.2987028Z pre-commit hook(s) made changes.
+lint	UNKNOWN STEP	2026-09-28T16:56:10.2987265Z If you are seeing this message in CI, reproduce locally with: `pre-commit run --all-files`.
+lint	UNKNOWN STEP	2026-09-28T16:56:10.2987554Z To run `pre-commit` as part of git workflow, use `pre-commit install`.
+lint	UNKNOWN STEP	2026-09-28T16:56:10.2987753Z All changes made by hooks:
+lint	UNKNOWN STEP	2026-09-28T16:56:10.3076661Z ^[[1mdiff --git a/.github/ISSUE_TEMPLATE.md b/.github/ISSUE_TEMPLATE.md^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.3077013Z ^[[1mindex 060d926..a618999 100644^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.3077286Z ^[[1m--- a/.github/ISSUE_TEMPLATE.md^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.3077553Z ^[[1m+++ b/.github/ISSUE_TEMPLATE.md^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.3077879Z ^[[36m@@ -12,7 +12,6 @@^[[m ^[[mWhat happened instead.^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.3078140Z  ^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.3078311Z  ```python^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.3078501Z  import requests^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.3078696Z ^[[31m-^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.3078868Z  ```^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.3079150Z  ^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.3079342Z  ## System Information^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.3079660Z ^[[1mdiff --git a/.github/ISSUE_TEMPLATE/Bug_report.md b/.github/ISSUE_TEMPLATE/Bug_report.md^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.3079938Z ^[[1mindex cb87bd6..5a6dda8 100644^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.3080128Z ^[[1m--- a/.github/ISSUE_TEMPLATE/Bug_report.md^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.3080329Z ^[[1m+++ b/.github/ISSUE_TEMPLATE/Bug_report.md^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.3080565Z ^[[36m@@ -18,7 +18,6 @@^[[m ^[[mabout: Create a report to help us improve^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.3080751Z  ^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.3080860Z  ```python^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.3080984Z  import requests^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.3081106Z ^[[31m-^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.3081218Z  ```^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.3081322Z  ^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.3081652Z  ## System Information^[[m
+lint	UNKNOWN STEP	2026-09-28T16:56:10.3281075Z ##[error]Process completed with exit code 1.

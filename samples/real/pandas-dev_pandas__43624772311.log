@@ -1,0 +1,88 @@
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:36.8219285Z ##[group]Run pixi run --environment typing ci-typing
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:36.8219537Z ^[[36;1mpixi run --environment typing ci-typing^[[0m
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:36.8236362Z shell: /usr/bin/bash -euox pipefail {0}
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:36.8236529Z ##[endgroup]
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:36.8271623Z + pixi run --environment typing ci-typing
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:37.1051439Z ✨ Pixi task (ci-typing in typing): pre-commit run --verbose --hook-stage manual --all-files
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:37.2910621Z [INFO] Initializing environment for https://github.com/astral-sh/ruff-pre-commit.
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:37.5842167Z [INFO] Initializing environment for https://github.com/jendrikseipp/vulture.
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:37.9648754Z [INFO] Initializing environment for https://github.com/codespell-project/codespell.
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:38.4094550Z [INFO] Initializing environment for https://github.com/MarcoGorelli/cython-lint.
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:38.7157323Z [INFO] Initializing environment for https://github.com/pre-commit/pre-commit-hooks.
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:39.0323276Z [INFO] Initializing environment for https://github.com/PyCQA/isort.
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:39.5125720Z [INFO] Initializing environment for https://github.com/pre-commit/pygrep-hooks.
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:39.8096724Z [INFO] Initializing environment for https://github.com/sphinx-contrib/sphinx-lint.
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:40.1705232Z [INFO] Initializing environment for https://github.com/pre-commit/mirrors-clang-format.
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:40.5069866Z [INFO] Initializing environment for https://github.com/trim21/pre-commit-mirror-meson.
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:40.7800976Z [INFO] Initializing environment for https://github.com/shellcheck-py/shellcheck-py.
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:41.0657729Z [INFO] Initializing environment for local:pyright@1.1.409.
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:41.0693851Z [INFO] Initializing environment for local.
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:41.0715465Z [INFO] Initializing environment for local:pyyaml.
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:41.0745901Z [INFO] Installing environment for https://github.com/pre-commit/pre-commit-hooks.
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:41.0746393Z [INFO] Once installed this environment will be reused.
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:41.0746696Z [INFO] This may take a few minutes...
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:43.5672321Z [INFO] Installing environment for https://github.com/PyCQA/isort.
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:43.5672797Z [INFO] Once installed this environment will be reused.
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:43.5673099Z [INFO] This may take a few minutes...
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:46.7017083Z [INFO] Installing environment for local.
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:46.7017677Z [INFO] Once installed this environment will be reused.
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:46.7017978Z [INFO] This may take a few minutes...
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:49.5442576Z fix end of files.........................................................Passed
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:49.5442856Z - hook id: end-of-file-fixer
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:49.5443019Z - duration: 0.04s
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:49.6725266Z trim trailing whitespace.................................................Passed
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:49.6725607Z - hook id: trailing-whitespace
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:49.6725779Z - duration: 0.12s
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:52.5286642Z isort....................................................................Passed
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:52.5287057Z - hook id: isort
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:52.5287387Z - duration: 2.85s
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:52.5287511Z 
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:52.5287593Z Skipped 1 files
+Type Checking	UNKNOWN STEP	2026-11-14T18:10:52.5287708Z 
+Type Checking	UNKNOWN STEP	2026-11-14T18:11:23.2974378Z pyright..................................................................Passed
+Type Checking	UNKNOWN STEP	2026-11-14T18:11:23.2974723Z - hook id: pyright
+Type Checking	UNKNOWN STEP	2026-11-14T18:11:23.2974877Z - duration: 30.76s
+Type Checking	UNKNOWN STEP	2026-11-14T18:11:23.2974968Z 
+Type Checking	UNKNOWN STEP	2026-11-14T18:11:23.2975083Z /home/runner/work/pandas/pandas/pandas/core/indexes/base.py
+Type Checking	UNKNOWN STEP	2026-11-14T18:11:23.2975507Z   /home/runner/work/pandas/pandas/pandas/core/indexes/base.py:7335:25 - warning: Expression value is unused (reportUnusedExpression)
+Type Checking	UNKNOWN STEP	2026-11-14T18:11:23.2975889Z 0 errors, 1 warning, 0 informations
+Type Checking	UNKNOWN STEP	2026-11-14T18:11:23.2976004Z 
+Type Checking	UNKNOWN STEP	2026-11-14T18:11:35.8690998Z pyright reportGeneralTypeIssues..........................................Failed
+Type Checking	UNKNOWN STEP	2026-11-14T18:11:35.8691835Z - hook id: pyright
+Type Checking	UNKNOWN STEP	2026-11-14T18:11:35.8691974Z - duration: 12.57s
+Type Checking	UNKNOWN STEP	2026-11-14T18:11:35.8692103Z - exit code: 1
+Type Checking	UNKNOWN STEP	2026-11-14T18:11:35.8692175Z 
+Type Checking	UNKNOWN STEP	2026-11-14T18:11:35.8692264Z /home/runner/work/pandas/pandas/pandas/core/base.py
+Type Checking	UNKNOWN STEP	2026-11-14T18:11:35.8692633Z   /home/runner/work/pandas/pandas/pandas/core/base.py:1002:31 - error: Cannot access attribute "to_dense" for class "ExtensionArray"
+Type Checking	UNKNOWN STEP	2026-11-14T18:11:35.8693290Z     Attribute "to_dense" is unknown (reportAttributeAccessIssue)
+Type Checking	UNKNOWN STEP	2026-11-14T18:11:35.8693698Z   /home/runner/work/pandas/pandas/pandas/core/base.py:1002:31 - error: Cannot access attribute "to_dense" for class "ndarray[_AnyShape, dtype[Any]]"
+Type Checking	UNKNOWN STEP	2026-11-14T18:11:35.8694122Z     Attribute "to_dense" is unknown (reportAttributeAccessIssue)
+Type Checking	UNKNOWN STEP	2026-11-14T18:11:35.8694350Z 2 errors, 0 warnings, 0 informations
+Type Checking	UNKNOWN STEP	2026-11-14T18:11:35.8694458Z 
+Type Checking	UNKNOWN STEP	2026-11-14T18:12:07.3488604Z mypy.....................................................................Failed
+Type Checking	UNKNOWN STEP	2026-11-14T18:12:07.3489106Z - hook id: mypy
+Type Checking	UNKNOWN STEP	2026-11-14T18:12:07.3489331Z - duration: 31.47s
+Type Checking	UNKNOWN STEP	2026-11-14T18:12:07.3489545Z - exit code: 1
+Type Checking	UNKNOWN STEP	2026-11-14T18:12:07.3489659Z 
+Type Checking	UNKNOWN STEP	2026-11-14T18:12:07.3490070Z pandas/core/base.py:1002: error: Item "ExtensionArray" of "ExtensionArray | ndarray[tuple[Any, ...], dtype[Any]]" has no attribute "to_dense"  [union-attr]
+Type Checking	UNKNOWN STEP	2026-11-14T18:12:07.3490917Z pandas/core/base.py:1002: error: Item "ndarray[tuple[Any, ...], dtype[Any]]" of "ExtensionArray | ndarray[tuple[Any, ...], dtype[Any]]" has no attribute "to_dense"  [union-attr]
+Type Checking	UNKNOWN STEP	2026-11-14T18:12:07.3491857Z pandas/tests/io/parser/test_parallel_read.py:2033: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+Type Checking	UNKNOWN STEP	2026-11-14T18:12:07.3492675Z pandas/tests/extension/base/methods.py:970: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+Type Checking	UNKNOWN STEP	2026-11-14T18:12:07.3493692Z pandas/tests/extension/base/methods.py:980: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+Type Checking	UNKNOWN STEP	2026-11-14T18:12:07.3494291Z pandas/tests/extension/base/methods.py:981: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+Type Checking	UNKNOWN STEP	2026-11-14T18:12:07.3494883Z pandas/tests/extension/base/methods.py:988: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+Type Checking	UNKNOWN STEP	2026-11-14T18:12:07.3495492Z pandas/tests/arrays/test_datetimelike.py:1480: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+Type Checking	UNKNOWN STEP	2026-11-14T18:12:07.3496096Z pandas/tests/arrays/arrow/test_string.py:923: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+Type Checking	UNKNOWN STEP	2026-11-14T18:12:07.3496711Z pandas/tests/frame/test_constructors.py:1823: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+Type Checking	UNKNOWN STEP	2026-11-14T18:12:07.3497108Z Found 2 errors in 1 file (checked 1487 source files)
+Type Checking	UNKNOWN STEP	2026-11-14T18:12:07.3497582Z 
+Type Checking	UNKNOWN STEP	2026-11-14T18:12:38.2188061Z mypy (stubtest)..........................................................Failed
+Type Checking	UNKNOWN STEP	2026-11-14T18:12:38.2188554Z - hook id: stubtest
+Type Checking	UNKNOWN STEP	2026-11-14T18:12:38.2189085Z - duration: 30.86s
+Type Checking	UNKNOWN STEP	2026-11-14T18:12:38.2189273Z - exit code: 1
+Type Checking	UNKNOWN STEP	2026-11-14T18:12:38.2189386Z 
+Type Checking	UNKNOWN STEP	2026-11-14T18:12:38.2189503Z error: not checking stubs due to mypy build errors:
+Type Checking	UNKNOWN STEP	2026-11-14T18:12:38.2190113Z pandas/core/base.py:1002: error: Item "ExtensionArray" of "ExtensionArray | ndarray[tuple[Any, ...], dtype[Any]]" has no attribute "to_dense"  [union-attr]
+Type Checking	UNKNOWN STEP	2026-11-14T18:12:38.2191041Z pandas/core/base.py:1002: error: Item "ndarray[tuple[Any, ...], dtype[Any]]" of "ExtensionArray | ndarray[tuple[Any, ...], dtype[Any]]" has no attribute "to_dense"  [union-attr]
+Type Checking	UNKNOWN STEP	2026-11-14T18:12:38.2191439Z 
+Type Checking	UNKNOWN STEP	2026-11-14T18:12:38.2561098Z ##[error]Process completed with exit code 1.

@@ -6,7 +6,8 @@ from typing import List, Optional
 
 from .models import Line, Log
 
-ANSI = re.compile(r"\x1b\[[0-9;?]*[A-Za-z]")
+# Real ESC sequences, plus the caret form (`^[[2m`) that some CI log exports contain.
+ANSI = re.compile(r"(?:\x1b|\^\[)\[[0-9;?]*[A-Za-z]")
 # 2026-01-01T12:00:00.123Z / 2026-01-01 12:00:00 / [12:00:00]
 TIMESTAMP = re.compile(
     r"^\s*(?:\[?\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}:\d{2}(?:\.\d+)?Z?\]?|\[\d{2}:\d{2}:\d{2}\])\s*"

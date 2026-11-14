@@ -42,7 +42,7 @@ class IngestTests(unittest.TestCase):
 
 class ClassifierTests(unittest.TestCase):
     def test_every_labelled_sample(self):
-        for d in (SAMPLES, SAMPLES / "holdout"):
+        for d in (SAMPLES, SAMPLES / "holdout", SAMPLES / "real"):
             rows, accuracy = run(d)
             for r in rows:
                 with self.subTest(file=r["file"]):
@@ -74,6 +74,30 @@ class ClassifierTests(unittest.TestCase):
         self.assertEqual(e["env_var"], "DATABASE_URL")
         self.assertEqual(sample("terraform_lock.log").diagnosis.entities["lock_id"],
                          "8f1c2d3e-4a5b-6c7d-8e9f-0a1b2c3d4e5f")
+
+
+class RealLogTests(unittest.TestCase):
+    """Three failed runs from public repos (flask, pandas, requests), labelled by reading each log."""
+
+    def real(self, name):
+        return sample(f"real/{name}")
+
+    def test_formatter_rewrite_names_the_hook(self):
+        r = self.real("psf_requests__36454554828.log")
+        self.assertEqual(r.diagnosis.category, "lint")
+        self.assertEqual(r.diagnosis.entities["hook"], "ruff format")
+
+    def test_type_error_points_at_file_and_line(self):
+        e = self.real("pandas-dev_pandas__43624772311.log").diagnosis.entities
+        self.assertEqual((e["type_file"], e["type_line"]), ("pandas/core/base.py", "1002"))
+
+    def test_warning_promoted_to_error_is_a_test_failure(self):
+        r = self.real("pallets_flask__37632508911.log")
+        self.assertEqual(r.diagnosis.category, "test")
+        self.assertEqual(r.diagnosis.entities["warning_class"], "DeprecationWarning")
+
+    def test_caret_ansi_is_stripped(self):
+        self.assertEqual(ingest("^[[2m- hook id: x^[[m").lines[0].text, "- hook id: x")
 
 
 class FixTests(unittest.TestCase):

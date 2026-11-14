@@ -1,0 +1,74 @@
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:18.1600815Z ##[group]Run uv run --locked --no-default-groups --group dev tox run
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:18.1601432Z ^[[36;1muv run --locked --no-default-groups --group dev tox run^[[0m
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:18.1888532Z shell: /usr/bin/bash -e {0}
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:18.1888909Z env:
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:18.1889325Z   UV_PYTHON_INSTALL_DIR: /home/runner/work/_temp/uv-python-dir
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:18.1889875Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:18.1890415Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:18.1891018Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:18.1891641Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:18.1892175Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:18.1892712Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:18.1893262Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:18.1893761Z   TOX_ENV: tests-dev
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:18.1894047Z ##[endgroup]
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:18.2982869Z Using CPython 3.11.17 interpreter at: /opt/hostedtoolcache/Python/3.11.17/x64/bin/python3
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:18.2983472Z Creating virtual environment at: .venv
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:18.3056301Z    Building flask @ file:///home/runner/work/flask/flask
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:18.3929987Z Downloading ruff (10.9MiB)
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:18.3932564Z Downloading virtualenv (5.2MiB)
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:18.3939822Z Downloading uv (21.0MiB)
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:18.6948864Z  Downloaded virtualenv
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:18.7610924Z  Downloaded ruff
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:18.7756793Z       Built flask @ file:///home/runner/work/flask/flask
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:18.8448654Z  Downloaded uv
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:18.8714541Z Installed 23 packages in 26ms
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:19.5401812Z tests-dev: venv> .venv/bin/uv venv -p cpython3.11 --allow-existing '--prompt=flask[tests-dev]' --python-preference system /home/runner/work/flask/flask/.tox/tests-dev
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:19.7289323Z tests-dev: uv-sync> .venv/bin/uv sync --locked --python-preference system --no-default-groups --no-editable --reinstall-package Flask --group tests -p cpython3.11
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:20.0882554Z tests-dev: freeze> .venv/bin/uv --color never pip freeze
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:20.1127906Z tests-dev: asgiref==3.12.1,blinker==1.9.0,click==8.4.2,flask @ file:///home/runner/work/flask/flask,iniconfig==2.3.0,itsdangerous==2.2.0,jinja2==3.1.6,markupsafe==3.0.3,packaging==26.2,pluggy==1.6.0,pygments==2.20.0,pytest==9.1.1,python-dotenv==1.2.2,werkzeug==3.1.8
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:20.1170185Z tests-dev: commands[0]> uv pip install https://github.com/pallets-eco/blinker/archive/refs/heads/main.tar.gz https://github.com/pallets/click/archive/refs/heads/main.tar.gz https://github.com/pallets/itsdangerous/archive/refs/heads/main.tar.gz https://github.com/pallets/jinja/archive/refs/heads/main.tar.gz https://github.com/pallets/markupsafe/archive/refs/heads/main.tar.gz https://github.com/pallets/werkzeug/archive/refs/heads/main.tar.gz
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:20.1287318Z Using Python 3.11.17 environment at: .tox/tests-dev
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:20.7219413Z Resolved 6 packages in 592ms
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:20.7453720Z    Building werkzeug @ https://github.com/pallets/werkzeug/archive/refs/heads/main.tar.gz
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:20.7472554Z    Building jinja2 @ https://github.com/pallets/jinja/archive/refs/heads/main.tar.gz
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:20.7474979Z    Building itsdangerous @ https://github.com/pallets/itsdangerous/archive/refs/heads/main.tar.gz
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:20.7530597Z    Building markupsafe @ https://github.com/pallets/markupsafe/archive/refs/heads/main.tar.gz
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:20.7534886Z    Building click @ https://github.com/pallets/click/archive/refs/heads/main.tar.gz
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:20.7622281Z    Building blinker @ https://github.com/pallets-eco/blinker/archive/refs/heads/main.tar.gz
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:21.0538984Z       Built click @ https://github.com/pallets/click/archive/refs/heads/main.tar.gz
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:21.0769142Z       Built jinja2 @ https://github.com/pallets/jinja/archive/refs/heads/main.tar.gz
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:21.0838635Z       Built itsdangerous @ https://github.com/pallets/itsdangerous/archive/refs/heads/main.tar.gz
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:21.1636583Z       Built blinker @ https://github.com/pallets-eco/blinker/archive/refs/heads/main.tar.gz
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:21.2071588Z       Built werkzeug @ https://github.com/pallets/werkzeug/archive/refs/heads/main.tar.gz
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:22.4763199Z       Built markupsafe @ https://github.com/pallets/markupsafe/archive/refs/heads/main.tar.gz
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:22.4775997Z Prepared 6 packages in 1.75s
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:22.4819395Z Uninstalled 6 packages in 4ms
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:22.4867739Z Installed 6 packages in 4ms
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:22.4880172Z  - blinker==1.9.0
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:22.4881157Z  + blinker==1.10.0.dev0 (from https://github.com/pallets-eco/blinker/archive/refs/heads/main.tar.gz)
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:22.4882073Z  - click==8.4.2
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:22.4895228Z  + click==8.6.0.dev0 (from https://github.com/pallets/click/archive/refs/heads/main.tar.gz)
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:22.4895725Z  - itsdangerous==2.2.0
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:22.4896195Z  + itsdangerous==2.3.0.dev0 (from https://github.com/pallets/itsdangerous/archive/refs/heads/main.tar.gz)
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:22.4896701Z  - jinja2==3.1.6
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:22.4897077Z  + jinja2==3.2.0.dev0 (from https://github.com/pallets/jinja/archive/refs/heads/main.tar.gz)
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:22.4897867Z  - markupsafe==3.0.3
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:22.4898304Z  + markupsafe==3.1.0.dev0 (from https://github.com/pallets/markupsafe/archive/refs/heads/main.tar.gz)
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:22.4898782Z  - werkzeug==3.1.8
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:22.4899182Z  + werkzeug==3.2.0.dev0 (from https://github.com/pallets/werkzeug/archive/refs/heads/main.tar.gz)
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:22.5054667Z tests-dev: commands[1]> pytest -v --tb=short --basetemp=/home/runner/work/flask/flask/.tox/tmp/tests-dev
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:23.1275250Z ImportError while loading conftest '/home/runner/work/flask/flask/tests/conftest.py'.
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:23.1616494Z tests/conftest.py:6: in <module>
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:23.1617071Z     from flask import Flask
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:23.1618063Z .tox/tests-dev/lib/python3.11/site-packages/flask/__init__.py:2: in <module>
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:23.1618989Z     from .app import Flask as Flask
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:23.1619753Z .tox/tests-dev/lib/python3.11/site-packages/flask/app.py:19: in <module>
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:23.1620723Z     from werkzeug.datastructures import ImmutableDict
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:23.1621689Z .tox/tests-dev/lib/python3.11/site-packages/werkzeug/datastructures/__init__.py:74: in __getattr__
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:23.1622714Z     warnings.warn(
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:23.1623458Z E   DeprecationWarning: The 'ImmutableDict' class is deprecated and will be removed in Werkzeug 4.0. Use 'collections.abc.Mapping' instead.
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:23.1956853Z tests-dev: exit 4 (0.69 seconds) /home/runner/work/flask/flask> pytest -v --tb=short --basetemp=/home/runner/work/flask/flask/.tox/tmp/tests-dev pid=2589
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:23.1961219Z   tests-dev: FAIL code 4 (3.66=setup[0.58]+cmd[2.39,0.69] seconds)
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:23.1961679Z   evaluation failed :( (3.72 seconds)
+Development Versions	UNKNOWN STEP	2026-10-07T13:56:23.2346062Z ##[error]Process completed with exit code 4.

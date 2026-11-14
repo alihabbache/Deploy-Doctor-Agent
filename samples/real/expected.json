@@ -1,0 +1,5 @@
+{
+  "pallets_flask__37632508911.log": {"category": "test", "top_fix_contains": "DeprecationWarning"},
+  "pandas-dev_pandas__43624772311.log": {"category": "lint", "top_fix_contains": "pandas/core/base.py:1002"},
+  "psf_requests__36454554828.log": {"category": "lint", "top_fix_contains": "ruff format"}
+}

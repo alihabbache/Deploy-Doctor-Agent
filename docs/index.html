@@ -131,7 +131,7 @@ Proposals only. Nothing was applied to your repo.</code></pre>
 <h2>How it works</h2>
 <div class="pipe">
 <div><b>1. Ingest</b>Strip ANSI codes, timestamps and CI prefixes. Keep original line numbers. Detect GitHub, GitLab, Jenkins or CircleCI.</div>
-<div><b>2. Classify</b>45 weighted rules score 7 categories. Output: ranked categories, tags, evidence lines and confidence.</div>
+<div><b>2. Classify</b>weighted rules score 8 categories. Output: ranked categories, tags, evidence lines and confidence.</div>
 <div><b>3. Extract</b>Pull concrete names: env var, package, image, test, lock ID, IAM action, TS error.</div>
 <div><b>4. Propose</b>Fill the 40 templates with those names. Rank by fit &times; category share. Keep 3.</div>
 <div><b>5. Report</b>Text, JSON or Markdown (for PR comments).</div>
@@ -164,7 +164,7 @@ Proposals only. Nothing was applied to your repo.</code></pre>
 <div class="stat"><div class="n">7/7</div><div class="l">top fix correct, holdout</div></div>
 </div>
 <div class="callout warn"><b>Read this number honestly.</b> 18 logs is a smoke test, not a benchmark. I wrote all but one of the logs myself. The exception is <code>real_setup_python_runner.log</code>: this project's own CI failed on its first push (<code>ubuntu-latest</code> moved to an image without Python 3.9). The agent said <code>unknown</code>, so I added a rule and fix for it. On the other holdout logs the categories were right first time, but the Maven log got a generic top fix, so I added an extractor and a template for it. So the holdout is no longer fully unseen. Real accuracy on production logs is unknown. Measuring it is the first roadmap item.</div>
-<div class="callout warn"><b>Real-log check.</b> I ran it on 20 recent failed GitHub Actions logs from public repos (flask, requests, pytest, django, numpy, pandas, react). It returned <code>unknown</code> for 14 and a diagnosis for 6. Many of the 14 are lint, format or type-check failures (flake8, isort, ruff, mypy), which no rule covers yet. I did not hand-verify the 6, so there is no accuracy number. Coverage on real logs is low, and that is the next thing to fix.</div>
+<div class="callout warn"><b>Real-log check.</b> The first run on 20 recent failed GitHub Actions logs from public repos returned <code>unknown</code> for 14, mostly lint, format and type-check failures. I added a <code>lint</code> category and a rule for warnings promoted to errors. Three of those logs (flask, pandas, requests) are now in <code>samples/real/</code>, labelled by reading each log, and all 3 are diagnosed correctly. I wrote the rules against these three, so this shows the rules work on them. It does not show that coverage improved. The other 17 were not re-run.</div>
 <table><tr><th>Log</th><th>Expected</th><th>Got</th><th>Conf.</th><th>Top fix</th><th></th></tr>
 <tr><td><code>github_aws_auth.log</code></td><td>auth</td><td>auth</td><td>75%</td><td>Replace static cloud keys with OIDC role assumption</td><td class="ok">pass</td></tr>
 <tr><td><code>npm_peer_conflict.log</code></td><td>dependency</td><td>dependency</td><td>75%</td><td>Upgrade `react-datepicker` to a release that supports your current `react`</td><td class="ok">pass</td></tr>
