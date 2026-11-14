@@ -1,0 +1,11 @@
+2026-03-12T10:00:04Z Run terraform apply -auto-approve
+2026-03-12T10:00:06Z ╷
+2026-03-12T10:00:06Z │ Error: Error acquiring the state lock
+2026-03-12T10:00:06Z │
+2026-03-12T10:00:06Z │ Error message: ConditionalCheckFailedException: The conditional request failed
+2026-03-12T10:00:06Z │ Lock Info:
+2026-03-12T10:00:06Z │   ID:        8f1c2d3e-4a5b-6c7d-8e9f-0a1b2c3d4e5f
+2026-03-12T10:00:06Z │   Path:      acme-tfstate/prod/terraform.tfstate
+2026-03-12T10:00:06Z │   Operation: OperationTypeApply
+2026-03-12T10:00:06Z ╵
+2026-03-12T10:00:06Z ##[error]Process completed with exit code 1.

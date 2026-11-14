@@ -1,0 +1,8 @@
+ PASS  src/utils/format.test.ts
+ FAIL  test/server.test.js
+  ● API › boots and answers /health
+    listen EADDRINUSE: address already in use :::3000
+      at Server.setupListenHandle [as _listen2] (node:net:1740:16)
+  ● API › slow import job finishes
+    Timeout of 5000ms exceeded. For async tests, ensure done() is called.
+Tests:       2 failed, 48 passed, 50 total

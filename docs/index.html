@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Deploy Doctor Agent</title>
+<style>
+:root{--bg:#fff;--s:#f7f8fa;--b:#e5e7eb;--t:#1f2328;--m:#57606a;--a:#3b82d4;--ok:#1a7f37;--bad:#cf222e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--t);font:15px/1.6 -apple-system,"Segoe UI",system-ui,sans-serif}
+main{max-width:820px;margin:0 auto;padding:48px 20px 64px}
+h1{font-size:34px;line-height:1.2;margin:0 0 8px}
+h2{font-size:21px;margin:48px 0 10px;padding-top:24px;border-top:1px solid var(--b)}
+h3{font-size:15px;margin:22px 0 4px}
+p{margin:8px 0} .lead{font-size:18px;color:var(--m);margin:0 0 20px} .m{color:var(--m)}
+a{color:var(--a)}
+code{font:13px ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--s);padding:1px 5px;border-radius:4px}
+pre{background:var(--s);border:1px solid var(--b);border-radius:6px;padding:14px;overflow-x:auto;font:12.5px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;margin:10px 0}
+pre code{background:none;padding:0}
+.da{color:var(--ok);background:#e6f6ea;display:inline-block;width:100%} .dd{color:var(--bad);background:#fdeaea;display:inline-block;width:100%}
+.dh{color:var(--m)} .dk{color:var(--a)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+.card{background:var(--s);border:1px solid var(--b);border-radius:6px;padding:14px}
+.card b{display:block;margin-bottom:4px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+.stat{border:1px solid var(--b);border-radius:6px;padding:12px;text-align:center}
+.stat .n{font-size:26px;font-weight:600;color:var(--a);line-height:1.2} .stat .l{font-size:12px;color:var(--m)}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--b);vertical-align:top}
+th{color:var(--m);font-weight:600;background:var(--s)}
+.ok{color:var(--ok);font-weight:600} .bad{color:var(--bad);font-weight:600}
+.pipe{display:flex;gap:8px;flex-wrap:wrap;align-items:stretch;margin:14px 0}
+.pipe div{flex:1 1 120px;background:var(--s);border:1px solid var(--b);border-radius:6px;padding:10px;font-size:13px}
+.pipe b{display:block;color:var(--a)}
+.callout{border-left:3px solid var(--a);background:var(--s);padding:10px 14px;margin:14px 0;border-radius:0 6px 6px 0}
+.warn{border-left-color:#bf8700}
+ul{padding-left:20px} li{margin:3px 0}
+footer{text-align:center;font-size:12px;color:var(--m);border-top:1px solid var(--b);padding:16px;margin-top:40px}
+@media(max-width:640px){.grid,.stats{grid-template-columns:1fr 1fr}}
+</style></head><body><main>
+
+<h1>Deploy Doctor Agent</h1>
+<p class="lead">Feed it a failed CI/CD run. It tells you what kind of failure it is, shows the evidence, and proposes the top 3 fixes as diffs.</p>
+<p><a href="https://github.com/alihabbache/Deploy-Doctor-Agent">github.com/alihabbache/Deploy-Doctor-Agent</a> &middot; proof of concept v0.1.0 &middot; Python standard library only</p>
+
+<div class="grid">
+<div class="card"><b>Problem</b>Failed deployments waste hours. The log is long, but the cause is usually a known pattern.</div>
+<div class="card"><b>Solution</b>An agent that ingests the failed run, classifies it, and proposes 3 ranked fixes with diffs.</div>
+<div class="card"><b>Impact</b>Lower mean time to recovery (MTTR) by removing the "read 3,000 lines" step.</div>
+</div>
+
+<div class="stats">
+<div class="stat"><div class="n">44</div><div class="l">detection rules</div></div>
+<div class="stat"><div class="n">7</div><div class="l">failure categories</div></div>
+<div class="stat"><div class="n">38</div><div class="l">fix templates</div></div>
+<div class="stat"><div class="n">23</div><div class="l">automated tests</div></div>
+</div>
+
+<h2>See it work</h2>
+<p>A Kubernetes rollout failed. Input is the raw log (8 lines here, usually thousands):</p>
+<pre><code>2026-03-11T13:05:02Z $ kubectl rollout status deployment/checkout-api --timeout=120s
+2026-03-11T13:05:02Z Waiting for deployment &quot;checkout-api&quot; rollout to finish: 0 of 3 updated replicas are available...
+2026-03-11T13:07:02Z error: timed out waiting for the condition
+2026-03-11T13:07:03Z $ kubectl describe pod checkout-api-7d9f8b6c5-x2kqp
+2026-03-11T13:07:03Z   Warning  Failed     2m   kubelet  Failed to pull image &quot;ghcr.io/acme/checkout-api:3f9a1c2&quot;: rpc error: code = Unknown desc = failed to resolve reference: not found
+2026-03-11T13:07:03Z   Warning  Failed     2m   kubelet  Error: ErrImagePull
+2026-03-11T13:07:03Z   Normal   BackOff    1m   kubelet  Back-off pulling image &quot;ghcr.io/acme/checkout-api:3f9a1c2&quot;
+2026-03-11T13:07:03Z   Warning  Failed     1m   kubelet  Error: ImagePullBackOff</code></pre>
+<p>Command: <code>python3 -m deploy_doctor samples/k8s_imagepull.log</code>. Output, unedited:</p>
+<pre><code><b>Diagnosis: Deployment rollout (Kubernetes / Helm) (rollout), confidence 95%</b>
+Analyzed 8 lines (generic).
+
+Evidence:
+  line 3: error: timed out waiting for the condition
+  line 5: Warning  Failed     2m   kubelet  Failed to pull image &quot;ghcr.io/acme/checkout-api:3f9a1c2&quot;: rpc error: code = Unknown desc = failed to resolve reference: not found
+  line 6: Warning  Failed     2m   kubelet  Error: ErrImagePull
+
+<b>Fix #1: Confirm `ghcr.io/acme/checkout-api:3f9a1c2` was actually pushed  [risk: low]</b>
+Deploy jobs often run before, or without, the push that creates the tag. The registry reported the reference as not found.
+$ docker manifest inspect ghcr.io/acme/checkout-api:3f9a1c2
+
+<b>Fix #2: Make the release roll back automatically on failure  [risk: low]</b>
+`--atomic` reverts a failed Helm upgrade, so a bad release never stays half-deployed.
+<span class="dh">--- a/.github/workflows/deploy.yml</span>
+<span class="dh">+++ b/.github/workflows/deploy.yml</span>
+<span class="dk">@@ -1 +1 @@</span>
+<span class="dd">-      - run: helm upgrade app ./chart --install</span>
+<span class="da">+      - run: helm upgrade app ./chart --install --atomic --timeout 5m</span>
+
+<b>Fix #3: Add an imagePullSecret for `ghcr.io/acme/checkout-api:3f9a1c2`  [risk: medium]</b>
+ImagePullBackOff means the node cannot fetch the image: wrong tag, missing push, or no pull credentials. The registry said the tag was not found, so check the push first.
+<span class="dh">--- a/k8s/deployment.yaml</span>
+<span class="dh">+++ b/k8s/deployment.yaml</span>
+<span class="dk">@@ -1,4 +1,6 @@</span>
+     spec:
+<span class="da">+      imagePullSecrets:</span>
+<span class="da">+        - name: regcred</span>
+       containers:
+         - name: app
+           image: ghcr.io/acme/checkout-api:3f9a1c2
+
+Proposals only. Nothing was applied to your repo.</code></pre>
+<p class="m">Note the ranking. The registry said the tag was <i>not found</i>, so "was it pushed?" ranks above "add pull credentials". The agent reads the evidence and doesn't just match on the category.</p>
+
+<h3>Same tool, a different failure</h3>
+<pre><code><b>Diagnosis: Configuration / secrets (config), confidence 75%</b>
+Analyzed 7 lines (github).
+
+Evidence:
+  line 3: Error: DATABASE_URL is not set
+
+<b>Fix #1: Pass `DATABASE_URL` into the deploy job  [risk: low]</b>
+`DATABASE_URL` is read at runtime but the workflow never provides it.
+<span class="dh">--- a/.github/workflows/deploy.yml</span>
+<span class="dh">+++ b/.github/workflows/deploy.yml</span>
+<span class="dk">@@ -1 +1,3 @@</span>
+       - run: ./deploy.sh
+<span class="da">+        env:</span>
+<span class="da">+          DATABASE_URL: ${{ secrets.DATABASE_URL }}</span>
+
+<b>Fix #2: Create the `DATABASE_URL` secret in the repository  [risk: low]</b>
+Referencing a secret that does not exist yields an empty string, not an error, which surfaces later as a confusing failure.
+$ gh secret set DATABASE_URL --repo &lt;OWNER&gt;/&lt;REPO&gt;
+
+<b>Fix #3: Document required settings and fail fast  [risk: low]</b>
+Validate config at startup so a missing value fails in seconds with a clear message.
+<span class="dh">--- /dev/null</span>
+<span class="dh">+++ b/.env.example</span>
+<span class="dk">@@ -0,0 +1 @@</span>
+<span class="da">+DATABASE_URL=changeme</span>
+
+Proposals only. Nothing was applied to your repo.</code></pre>
+
+<h2>How it works</h2>
+<div class="pipe">
+<div><b>1. Ingest</b>Strip ANSI codes, timestamps and CI prefixes. Keep original line numbers. Detect GitHub, GitLab, Jenkins or CircleCI.</div>
+<div><b>2. Classify</b>44 weighted rules score 7 categories. Output: ranked categories, tags, evidence lines and confidence.</div>
+<div><b>3. Extract</b>Pull concrete names: env var, package, image, test, lock ID, IAM action, TS error.</div>
+<div><b>4. Propose</b>Fill the 38 templates with those names. Rank by fit &times; category share. Keep 3.</div>
+<div><b>5. Report</b>Text, JSON or Markdown (for PR comments).</div>
+</div>
+<p>Categories: <code>auth</code> <code>dependency</code> <code>build</code> <code>test</code> <code>config</code> <code>infra</code> <code>rollout</code>. A log that matches nothing returns <code>unknown</code> with no fixes. It refuses to guess.</p>
+<p>Machine-readable output (<code>--json</code>), trimmed:</p>
+<pre><code>{
+  &quot;category&quot;: &quot;config&quot;,
+  &quot;confidence&quot;: 0.75,
+  &quot;entities&quot;: {
+    &quot;env_var&quot;: &quot;DATABASE_URL&quot;,
+    &quot;exit_code&quot;: &quot;1&quot;
+  }
+}</code></pre>
+
+<h2>Design decisions</h2>
+<ul>
+<li><b>Rules first, LLM later.</b> A POC should be deterministic, offline and free, so every result can be explained and tested. An LLM fits best as a fallback for logs the rules can't classify.</li>
+<li><b>Confidence is capped at 95%.</b> It measures how strongly rules matched and how far ahead the winner is. It is not a probability.</li>
+<li><b>Every fix is a proposal.</b> Each carries a risk level. High-risk fixes (for example <code>terraform force-unlock</code>) are labelled. Nothing is applied automatically.</li>
+<li><b>Evidence is cited by line number</b> so a human can verify the diagnosis in seconds.</li>
+</ul>
+
+<h2>How well does it work?</h2>
+<p>Two sets of labelled logs: a development set the rules were built against, and a holdout set written afterwards in a different style.</p>
+<div class="stats">
+<div class="stat"><div class="n">100%</div><div class="l">category accuracy, dev (11 logs)</div></div>
+<div class="stat"><div class="n">100%</div><div class="l">category accuracy, holdout (6 logs)</div></div>
+<div class="stat"><div class="n">11/11</div><div class="l">top fix correct, dev</div></div>
+<div class="stat"><div class="n">6/6</div><div class="l">top fix correct, holdout</div></div>
+</div>
+<div class="callout warn"><b>Read this number honestly.</b> 17 logs is a smoke test, not a benchmark. I wrote the logs myself. On the holdout set the categories were right first time, but the Maven log got a generic top fix, so I added an extractor and a template for it. That means the holdout is no longer fully unseen. Real accuracy on production logs is unknown. Measuring it is the first roadmap item.</div>
+<table><tr><th>Log</th><th>Expected</th><th>Got</th><th>Conf.</th><th>Top fix</th><th></th></tr>
+<tr><td><code>github_aws_auth.log</code></td><td>auth</td><td>auth</td><td>75%</td><td>Replace static cloud keys with OIDC role assumption</td><td class="ok">pass</td></tr>
+<tr><td><code>npm_peer_conflict.log</code></td><td>dependency</td><td>dependency</td><td>75%</td><td>Upgrade `react-datepicker` to a release that supports your current `react`</td><td class="ok">pass</td></tr>
+<tr><td><code>flaky_pytest.log</code></td><td>test</td><td>test</td><td>95%</td><td>Retry flaky tests in CI, not the whole pipeline</td><td class="ok">pass</td></tr>
+<tr><td><code>jest_port_timeout.log</code></td><td>test</td><td>test</td><td>95%</td><td>Stop hard-coding port 3000 in tests</td><td class="ok">pass</td></tr>
+<tr><td><code>missing_env_var.log</code></td><td>config</td><td>config</td><td>75%</td><td>Pass `DATABASE_URL` into the deploy job</td><td class="ok">pass</td></tr>
+<tr><td><code>oom_build.log</code></td><td>infra</td><td>infra</td><td>75%</td><td>Raise the Node heap limit for the build</td><td class="ok">pass</td></tr>
+<tr><td><code>k8s_imagepull.log</code></td><td>rollout</td><td>rollout</td><td>95%</td><td>Confirm `ghcr.io/acme/checkout-api:3f9a1c2` was actually pushed</td><td class="ok">pass</td></tr>
+<tr><td><code>terraform_lock.log</code></td><td>infra</td><td>infra</td><td>80%</td><td>Release the stale Terraform state lock</td><td class="ok">pass</td></tr>
+<tr><td><code>typescript_error.log</code></td><td>build</td><td>build</td><td>75%</td><td>Fix TS2345 at src/billing/invoice.ts:48</td><td class="ok">pass</td></tr>
+<tr><td><code>gitlab_registry_denied.log</code></td><td>auth</td><td>auth</td><td>70%</td><td>Log in to the container registry before pushing</td><td class="ok">pass</td></tr>
+<tr><td><code>unknown_noise.log</code></td><td>unknown</td><td>unknown</td><td>0%</td><td><span class=m>no fixes (by design)</span></td><td class="ok">pass</td></tr>
+<tr><td><code>maven_resolution.log</code></td><td>dependency</td><td>dependency</td><td>61%</td><td>Publish or resolve `com.acme:shared-models:2.4.0` before this build</td><td class="ok">pass</td></tr>
+<tr><td><code>docker_rate_limit.log</code></td><td>infra</td><td>infra</td><td>75%</td><td>Authenticate to Docker Hub to lift pull limits</td><td class="ok">pass</td></tr>
+<tr><td><code>liveness_probe.log</code></td><td>rollout</td><td>rollout</td><td>95%</td><td>Give the app time to start before probing</td><td class="ok">pass</td></tr>
+<tr><td><code>python_module.log</code></td><td>dependency</td><td>dependency</td><td>75%</td><td>Add `structlog` to requirements</td><td class="ok">pass</td></tr>
+<tr><td><code>disk_full.log</code></td><td>infra</td><td>infra</td><td>68%</td><td>Free disk space before the heavy step</td><td class="ok">pass</td></tr>
+<tr><td><code>github_perms.log</code></td><td>auth</td><td>auth</td><td>80%</td><td>Give the workflow token the permission it is missing</td><td class="ok">pass</td></tr>
+</table>
+
+<h2>What I'd measure to prove the impact</h2>
+<p>The impact claim (lower MTTR) is a hypothesis, not a result. The POC has not been tried on real incidents. To test it:</p>
+<ul>
+<li><b>Time to first correct hypothesis:</b> failed run &rarr; engineer knows the cause. Compare with and without the agent.</li>
+<li><b>Top-3 hit rate:</b> share of failures where the right fix is in the 3 proposed. Target &ge; 70% before wider rollout.</li>
+<li><b>Unknown rate:</b> share of logs the rules cannot classify. It drives which rules to write next.</li>
+<li><b>Wrong-but-confident rate:</b> high-confidence misdiagnoses. This is the trust-killing metric, so keep it near zero.</li>
+</ul>
+
+<h2>Roadmap</h2>
+<table>
+<tr><th>Phase</th><th>Scope</th><th>Exit criterion</th></tr>
+<tr><td><b>0. POC</b> (this repo)</td><td>Rules, 7 categories, top-3 fixes with diffs, CLI, tests, eval harness</td><td>Done</td></tr>
+<tr><td><b>1. Real data</b></td><td>Collect 100+ real failed logs, label them, widen the eval, add a GitHub log fetcher (<code>gh run view --log-failed</code>)</td><td>Measured top-3 hit rate</td></tr>
+<tr><td><b>2. LLM fallback</b></td><td>Send only the evidence window to an LLM when confidence is low; generate diffs from the user's real files instead of templates</td><td>Unknown rate &lt; 10%</td></tr>
+<tr><td><b>3. Where engineers are</b></td><td>GitHub Action / App that comments on failed runs; optional "open fix PR" with human approval</td><td>Pilot with one team, MTTR compared</td></tr>
+<tr><td><b>4. Breadth</b></td><td>GitLab, Jenkins, CircleCI adapters; per-team custom rules</td><td>Second team onboarded</td></tr>
+</table>
+
+<h2>Known limits</h2>
+<ul>
+<li>Diffs are <b>templates</b>. They show the shape of the change with placeholders such as <code>&lt;ACCOUNT_ID&gt;</code>, not a patch against your real files.</li>
+<li>Only the log is analysed. It doesn't see the repo, the previous green run, or the commit diff.</li>
+<li>English log messages only. Only one root cause is reported. When several categories match, the others are listed as "also matched".</li>
+<li>Rules are regexes, so a new tool with a new error format needs a new rule.</li>
+</ul>
+
+<h2>Try it</h2>
+<pre><code>git clone https://github.com/alihabbache/Deploy-Doctor-Agent.git
+cd Deploy-Doctor-Agent
+python3 -m deploy_doctor samples/oom_build.log
+python3 -m deploy_doctor samples/flaky_pytest.log --markdown
+cat my_failed_run.log | python3 -m deploy_doctor - --json
+python3 -m deploy_doctor.evaluate            # accuracy on labelled logs
+python3 -m unittest discover -s tests        # 23 tests</code></pre>
+<p>Exit codes: <code>0</code> diagnosed, <code>1</code> unknown, <code>2</code> bad input. Handy for gating a CI step.</p>
+
+<footer>Made with IBM Bob</footer>
+</main></body></html>

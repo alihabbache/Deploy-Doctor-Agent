@@ -1,0 +1,5 @@
+Events:
+  Warning  Unhealthy  45s (x6 over 2m)  kubelet  Readiness probe failed: Get "http://10.2.1.7:8080/healthz": dial tcp 10.2.1.7:8080: connect: connection refused
+  Warning  Unhealthy  30s (x3 over 1m)  kubelet  Liveness probe failed: HTTP probe failed with statuscode: 503
+  Normal   Killing    30s               kubelet  Container app failed liveness probe, will be restarted
+Error: UPGRADE FAILED: timed out waiting for the condition

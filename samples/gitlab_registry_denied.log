@@ -1,0 +1,9 @@
+Running with gitlab-runner 16.9.1 (782c6ecb)
+section_start:1710000000:build_script
+$ docker build -t registry.gitlab.com/acme/app:$CI_COMMIT_SHA .
+Successfully built 9d2f4a1b7c3e
+$ docker push registry.gitlab.com/acme/app:$CI_COMMIT_SHA
+The push refers to repository [registry.gitlab.com/acme/app]
+denied: requested access to the resource is denied
+section_end:1710000042:build_script
+ERROR: Job failed: exit code 1

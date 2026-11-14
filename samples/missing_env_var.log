@@ -1,0 +1,7 @@
+2026-03-07T16:40:11Z > node scripts/migrate.js
+2026-03-07T16:40:11Z Connecting to database...
+2026-03-07T16:40:11Z Error: DATABASE_URL is not set
+2026-03-07T16:40:11Z     at loadConfig (/app/scripts/config.js:14:11)
+2026-03-07T16:40:11Z npm ERR! code ELIFECYCLE
+2026-03-07T16:40:11Z npm ERR! errno 1
+2026-03-07T16:40:12Z ##[error]Process completed with exit code 1.

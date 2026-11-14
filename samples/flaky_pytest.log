@@ -1,0 +1,16 @@
+============================= test session starts ==============================
+platform linux -- Python 3.11.8, pytest-8.1.1
+collected 214 items
+
+tests/test_orders.py ..............................                      [ 14%]
+tests/test_payments.py ....F.....                                        [ 19%]
+=================================== FAILURES ===================================
+____________________ test_webhook_delivery_retries ____________________
+    def test_webhook_delivery_retries():
+>       assert delivered.wait(timeout=1) is True
+E       AssertionError: assert False is True
+E       race condition: callback fired after the assertion window
+=========================== short test summary info ============================
+FAILED tests/test_payments.py::test_webhook_delivery_retries - AssertionError
+======================== 1 failed, 213 passed in 41.20s ========================
+Note: this test passed on rerun 2 of the last 5 runs (intermittent)

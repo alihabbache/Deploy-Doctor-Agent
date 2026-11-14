@@ -1,0 +1,13 @@
+{
+  "github_aws_auth.log": {"category": "auth", "top_fix_contains": "OIDC"},
+  "npm_peer_conflict.log": {"category": "dependency", "top_fix_contains": "react-datepicker"},
+  "flaky_pytest.log": {"category": "test", "top_fix_contains": "Retry"},
+  "jest_port_timeout.log": {"category": "test", "top_fix_contains": "port"},
+  "missing_env_var.log": {"category": "config", "top_fix_contains": "DATABASE_URL"},
+  "oom_build.log": {"category": "infra", "top_fix_contains": "heap"},
+  "k8s_imagepull.log": {"category": "rollout", "top_fix_contains": "was actually pushed"},
+  "terraform_lock.log": {"category": "infra", "top_fix_contains": "state lock"},
+  "typescript_error.log": {"category": "build", "top_fix_contains": "TS2345"},
+  "gitlab_registry_denied.log": {"category": "auth", "top_fix_contains": "registry"},
+  "unknown_noise.log": {"category": "unknown", "top_fix_contains": ""}
+}

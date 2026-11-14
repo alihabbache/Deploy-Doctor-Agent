@@ -1,0 +1,11 @@
+2026-03-04T11:02:10.001Z Run npm ci
+2026-03-04T11:02:12.410Z npm ERR! code ERESOLVE
+2026-03-04T11:02:12.411Z npm ERR! ERESOLVE could not resolve
+2026-03-04T11:02:12.411Z npm ERR!
+2026-03-04T11:02:12.412Z npm ERR! While resolving: react-datepicker@4.8.0
+2026-03-04T11:02:12.412Z npm ERR! Found: react@18.3.1
+2026-03-04T11:02:12.413Z npm ERR! Could not resolve dependency:
+2026-03-04T11:02:12.413Z npm ERR! peer react@"^16.9.0 || ^17" from react-datepicker@4.8.0
+2026-03-04T11:02:12.414Z npm ERR! Fix the upstream dependency conflict, or retry
+2026-03-04T11:02:12.414Z npm ERR! this command with --force or --legacy-peer-deps
+2026-03-04T11:02:12.500Z ##[error]Process completed with exit code 1.

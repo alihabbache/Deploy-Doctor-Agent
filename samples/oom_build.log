@@ -1,0 +1,6 @@
+2026-03-09T08:21:44Z > next build
+2026-03-09T08:21:45Z Creating an optimized production build ...
+2026-03-09T08:23:58Z <--- Last few GCs --->
+2026-03-09T08:23:58Z FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory
+2026-03-09T08:23:59Z Killed
+2026-03-09T08:23:59Z ##[error]Process completed with exit code 137.

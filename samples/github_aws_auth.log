@@ -1,0 +1,9 @@
+2026-03-02T09:14:01.1120000Z ##[group]Run aws-actions/configure-aws-credentials@v4
+2026-03-02T09:14:01.1122000Z with:
+2026-03-02T09:14:01.1123000Z   aws-region: us-east-1
+2026-03-02T09:14:01.1124000Z ##[endgroup]
+2026-03-02T09:14:01.8300000Z ##[error]Credentials could not be loaded, please check your action inputs: Could not load credentials from any providers
+2026-03-02T09:14:02.0100000Z ##[group]Run aws s3 sync ./dist s3://acme-web-prod
+2026-03-02T09:14:02.5400000Z Unable to locate credentials. You can configure credentials by running "aws configure".
+2026-03-02T09:14:02.5900000Z fatal error: Unable to locate credentials
+2026-03-02T09:14:02.6200000Z ##[error]Process completed with exit code 1.

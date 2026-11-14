@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "deploy-doctor"
+version = "0.1.0"
+description = "Classify a failed CI/CD run and propose the top 3 fixes with diffs."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+dependencies = []
+
+[project.scripts]
+deploy-doctor = "deploy_doctor.cli:main"
+
+[tool.setuptools]
+packages = ["deploy_doctor"]

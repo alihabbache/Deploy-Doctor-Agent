@@ -1,0 +1,4 @@
+[INFO] Scanning for projects...
+[ERROR] Failed to execute goal on project billing-service: Could not resolve dependencies for project com.acme:billing-service:jar:2.4.0: Could not find artifact com.acme:shared-models:jar:2.4.0 in central (https://repo.maven.apache.org/maven2)
+[ERROR] -> [Help 1]
+[INFO] BUILD FAILURE

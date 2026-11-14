@@ -1,0 +1,6 @@
+2026-03-13T15:30:01Z > tsc -p tsconfig.build.json
+2026-03-13T15:30:09Z src/billing/invoice.ts(48,17): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+2026-03-13T15:30:09Z src/billing/invoice.ts(92,5): error TS2322: Type 'number' is not assignable to type 'string'.
+2026-03-13T15:30:09Z Found 2 errors in the same file, starting at: src/billing/invoice.ts:48
+2026-03-13T15:30:09Z npm ERR! code ELIFECYCLE
+2026-03-13T15:30:10Z ##[error]Process completed with exit code 2.

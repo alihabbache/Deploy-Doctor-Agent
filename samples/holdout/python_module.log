@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "manage.py", line 3, in <module>
+    import structlog
+ModuleNotFoundError: No module named 'structlog'
+Error: Process completed with exit code 1.

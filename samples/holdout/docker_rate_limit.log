@@ -1,0 +1,3 @@
+#3 [internal] load metadata for docker.io/library/python:3.11-slim
+#3 ERROR: failed to authorize: failed to fetch anonymous token
+ERROR: toomanyrequests: You have reached your pull rate limit. You may increase the limit by authenticating and upgrading

@@ -1,0 +1,8 @@
+2026-03-11T13:05:02Z $ kubectl rollout status deployment/checkout-api --timeout=120s
+2026-03-11T13:05:02Z Waiting for deployment "checkout-api" rollout to finish: 0 of 3 updated replicas are available...
+2026-03-11T13:07:02Z error: timed out waiting for the condition
+2026-03-11T13:07:03Z $ kubectl describe pod checkout-api-7d9f8b6c5-x2kqp
+2026-03-11T13:07:03Z   Warning  Failed     2m   kubelet  Failed to pull image "ghcr.io/acme/checkout-api:3f9a1c2": rpc error: code = Unknown desc = failed to resolve reference: not found
+2026-03-11T13:07:03Z   Warning  Failed     2m   kubelet  Error: ErrImagePull
+2026-03-11T13:07:03Z   Normal   BackOff    1m   kubelet  Back-off pulling image "ghcr.io/acme/checkout-api:3f9a1c2"
+2026-03-11T13:07:03Z   Warning  Failed     1m   kubelet  Error: ImagePullBackOff
