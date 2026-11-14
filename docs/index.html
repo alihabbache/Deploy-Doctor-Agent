@@ -37,7 +37,7 @@ footer{text-align:center;font-size:12px;color:var(--m);border-top:1px solid var(
 </style></head><body><main>
 
 <h1>Deploy Doctor Agent</h1>
-<p class="lead">Feed it a failed CI/CD run. It tells you what kind of failure it is, shows the evidence, and proposes the top 3 fixes as diffs.</p>
+<p class="lead">A rule-based agent (no LLM yet). Feed it a failed CI/CD run. It tells you what kind of failure it is, shows the evidence, and proposes the top 3 fixes as diffs.</p>
 <p><a href="https://github.com/alihabbache/Deploy-Doctor-Agent">github.com/alihabbache/Deploy-Doctor-Agent</a> &middot; proof of concept v0.1.0 &middot; Python standard library only</p>
 
 <div class="grid">
@@ -164,6 +164,7 @@ Proposals only. Nothing was applied to your repo.</code></pre>
 <div class="stat"><div class="n">7/7</div><div class="l">top fix correct, holdout</div></div>
 </div>
 <div class="callout warn"><b>Read this number honestly.</b> 18 logs is a smoke test, not a benchmark. I wrote all but one of the logs myself. The exception is <code>real_setup_python_runner.log</code>: this project's own CI failed on its first push (<code>ubuntu-latest</code> moved to an image without Python 3.9). The agent said <code>unknown</code>, so I added a rule and fix for it. On the other holdout logs the categories were right first time, but the Maven log got a generic top fix, so I added an extractor and a template for it. So the holdout is no longer fully unseen. Real accuracy on production logs is unknown. Measuring it is the first roadmap item.</div>
+<div class="callout warn"><b>Real-log check.</b> I ran it on 20 recent failed GitHub Actions logs from public repos (flask, requests, pytest, django, numpy, pandas, react). It returned <code>unknown</code> for 14 and a diagnosis for 6. Many of the 14 are lint, format or type-check failures (flake8, isort, ruff, mypy), which no rule covers yet. I did not hand-verify the 6, so there is no accuracy number. Coverage on real logs is low, and that is the next thing to fix.</div>
 <table><tr><th>Log</th><th>Expected</th><th>Got</th><th>Conf.</th><th>Top fix</th><th></th></tr>
 <tr><td><code>github_aws_auth.log</code></td><td>auth</td><td>auth</td><td>75%</td><td>Replace static cloud keys with OIDC role assumption</td><td class="ok">pass</td></tr>
 <tr><td><code>npm_peer_conflict.log</code></td><td>dependency</td><td>dependency</td><td>75%</td><td>Upgrade `react-datepicker` to a release that supports your current `react`</td><td class="ok">pass</td></tr>
