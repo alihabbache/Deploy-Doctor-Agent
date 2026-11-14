@@ -47,10 +47,10 @@ footer{text-align:center;font-size:12px;color:var(--m);border-top:1px solid var(
 </div>
 
 <div class="stats">
-<div class="stat"><div class="n">45</div><div class="l">detection rules</div></div>
-<div class="stat"><div class="n">7</div><div class="l">failure categories</div></div>
+<div class="stat"><div class="n">52</div><div class="l">detection rules</div></div>
+<div class="stat"><div class="n">8</div><div class="l">failure categories</div></div>
 <div class="stat"><div class="n">40</div><div class="l">fix templates</div></div>
-<div class="stat"><div class="n">23</div><div class="l">automated tests</div></div>
+<div class="stat"><div class="n">27</div><div class="l">automated tests</div></div>
 </div>
 
 <h2>See it work</h2>
@@ -133,7 +133,7 @@ Proposals only. Nothing was applied to your repo.</code></pre>
 <div><b>1. Ingest</b>Strip ANSI codes, timestamps and CI prefixes. Keep original line numbers. Detect GitHub, GitLab, Jenkins or CircleCI.</div>
 <div><b>2. Classify</b>weighted rules score 8 categories. Output: ranked categories, tags, evidence lines and confidence.</div>
 <div><b>3. Extract</b>Pull concrete names: env var, package, image, test, lock ID, IAM action, TS error.</div>
-<div><b>4. Propose</b>Fill the 40 templates with those names. Rank by fit &times; category share. Keep 3.</div>
+<div><b>4. Propose</b>Fill the 44 templates with those names. Rank by fit &times; category share. Keep 3.</div>
 <div><b>5. Report</b>Text, JSON or Markdown (for PR comments).</div>
 </div>
 <p>Categories: <code>auth</code> <code>dependency</code> <code>build</code> <code>test</code> <code>config</code> <code>infra</code> <code>rollout</code>. A log that matches nothing returns <code>unknown</code> with no fixes. It refuses to guess.</p>
@@ -156,12 +156,13 @@ Proposals only. Nothing was applied to your repo.</code></pre>
 </ul>
 
 <h2>How well does it work?</h2>
-<p>Two sets of labelled logs: a development set the rules were built against, and a holdout set written afterwards in a different style.</p>
+<p>Three sets of labelled logs: a development set the rules were built against, a holdout set written afterwards in a different style, and 3 real failed runs from public repos.</p>
 <div class="stats">
 <div class="stat"><div class="n">100%</div><div class="l">category accuracy, dev (11 logs)</div></div>
 <div class="stat"><div class="n">100%</div><div class="l">category accuracy, holdout (7 logs)</div></div>
 <div class="stat"><div class="n">11/11</div><div class="l">top fix correct, dev</div></div>
 <div class="stat"><div class="n">7/7</div><div class="l">top fix correct, holdout</div></div>
+<div class="stat"><div class="n">3/3</div><div class="l">category and top fix correct, real logs (rules written against them)</div></div>
 </div>
 <div class="callout warn"><b>Read this number honestly.</b> 18 logs is a smoke test, not a benchmark. I wrote all but one of the logs myself. The exception is <code>real_setup_python_runner.log</code>: this project's own CI failed on its first push (<code>ubuntu-latest</code> moved to an image without Python 3.9). The agent said <code>unknown</code>, so I added a rule and fix for it. On the other holdout logs the categories were right first time, but the Maven log got a generic top fix, so I added an extractor and a template for it. So the holdout is no longer fully unseen. Real accuracy on production logs is unknown. Measuring it is the first roadmap item.</div>
 <div class="callout warn"><b>Real-log check.</b> The first run on 20 recent failed GitHub Actions logs from public repos returned <code>unknown</code> for 14, mostly lint, format and type-check failures. I added a <code>lint</code> category and a rule for warnings promoted to errors. Three of those logs (flask, pandas, requests) are now in <code>samples/real/</code>, labelled by reading each log, and all 3 are diagnosed correctly. I wrote the rules against these three, so this shows the rules work on them. It does not show that coverage improved. The other 17 were not re-run.</div>
@@ -184,6 +185,9 @@ Proposals only. Nothing was applied to your repo.</code></pre>
 <tr><td><code>disk_full.log</code></td><td>infra</td><td>infra</td><td>68%</td><td>Free disk space before the heavy step</td><td class="ok">pass</td></tr>
 <tr><td><code>github_perms.log</code></td><td>auth</td><td>auth</td><td>80%</td><td>Give the workflow token the permission it is missing</td><td class="ok">pass</td></tr>
 <tr><td><code>real_setup_python_runner.log</code></td><td>infra</td><td>infra</td><td>80%</td><td>Pin the runner image so `3.9` is available</td><td class="ok">pass</td></tr>
+<tr><td><code>real/psf_requests</code></td><td>lint</td><td>lint</td><td>95%</td><td>Run `ruff format` locally and commit what it changes</td><td class="ok">pass</td></tr>
+<tr><td><code>real/pandas-dev_pandas</code></td><td>lint</td><td>lint</td><td>95%</td><td>Fix the type error at pandas/core/base.py:1002</td><td class="ok">pass</td></tr>
+<tr><td><code>real/pallets_flask</code></td><td>test</td><td>test</td><td>90%</td><td>Stop `DeprecationWarning` from failing the run while you migrate</td><td class="ok">pass</td></tr>
 </table>
 
 <h2>What I'd measure to prove the impact</h2>
@@ -198,7 +202,7 @@ Proposals only. Nothing was applied to your repo.</code></pre>
 <h2>Roadmap</h2>
 <table>
 <tr><th>Phase</th><th>Scope</th><th>Exit criterion</th></tr>
-<tr><td><b>0. POC</b> (this repo)</td><td>Rules, 7 categories, top-3 fixes with diffs, CLI, tests, eval harness</td><td>Done</td></tr>
+<tr><td><b>0. POC</b> (this repo)</td><td>Rules, 8 categories, top-3 fixes with diffs, CLI, tests, eval harness</td><td>Done</td></tr>
 <tr><td><b>1. Real data</b></td><td>Collect 100+ real failed logs, label them, widen the eval, add a GitHub log fetcher (<code>gh run view --log-failed</code>)</td><td>Measured top-3 hit rate</td></tr>
 <tr><td><b>2. LLM fallback</b></td><td>Send only the evidence window to an LLM when confidence is low; generate diffs from the user's real files instead of templates</td><td>Unknown rate &lt; 10%</td></tr>
 <tr><td><b>3. Where engineers are</b></td><td>GitHub Action / App that comments on failed runs; optional "open fix PR" with human approval</td><td>Pilot with one team, MTTR compared</td></tr>
@@ -220,7 +224,7 @@ python3 -m deploy_doctor samples/oom_build.log
 python3 -m deploy_doctor samples/flaky_pytest.log --markdown
 cat my_failed_run.log | python3 -m deploy_doctor - --json
 python3 -m deploy_doctor.evaluate            # accuracy on labelled logs
-python3 -m unittest discover -s tests        # 23 tests</code></pre>
+python3 -m unittest discover -s tests        # 27 tests</code></pre>
 <p>Exit codes: <code>0</code> diagnosed, <code>1</code> unknown, <code>2</code> bad input. Handy for gating a CI step.</p>
 
 <footer>Made with IBM Bob</footer>
