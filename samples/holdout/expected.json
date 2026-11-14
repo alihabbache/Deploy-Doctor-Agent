@@ -1,8 +1,30 @@
 {
-  "maven_resolution.log": {"category": "dependency", "top_fix_contains": "shared-models"},
-  "docker_rate_limit.log": {"category": "infra", "top_fix_contains": "Docker Hub"},
-  "liveness_probe.log": {"category": "rollout", "top_fix_contains": "probing"},
-  "python_module.log": {"category": "dependency", "top_fix_contains": "structlog"},
-  "disk_full.log": {"category": "infra", "top_fix_contains": "disk"},
-  "github_perms.log": {"category": "auth", "top_fix_contains": "permission"}
+  "maven_resolution.log": {
+    "category": "dependency",
+    "top_fix_contains": "shared-models"
+  },
+  "docker_rate_limit.log": {
+    "category": "infra",
+    "top_fix_contains": "Docker Hub"
+  },
+  "liveness_probe.log": {
+    "category": "rollout",
+    "top_fix_contains": "probing"
+  },
+  "python_module.log": {
+    "category": "dependency",
+    "top_fix_contains": "structlog"
+  },
+  "disk_full.log": {
+    "category": "infra",
+    "top_fix_contains": "disk"
+  },
+  "github_perms.log": {
+    "category": "auth",
+    "top_fix_contains": "permission"
+  },
+  "real_setup_python_runner.log": {
+    "category": "infra",
+    "top_fix_contains": "runner image"
+  }
 }

@@ -1,0 +1,15 @@
+test (3.9)	Run actions/setup-python@v5	﻿2026-11-14T20:42:31.7532672Z ##[group]Run actions/setup-python@v5
+test (3.9)	Run actions/setup-python@v5	2026-11-14T20:42:31.7533060Z with:
+test (3.9)	Run actions/setup-python@v5	2026-11-14T20:42:31.7533313Z   python-version: 3.9
+test (3.9)	Run actions/setup-python@v5	2026-11-14T20:42:31.7533596Z   check-latest: false
+test (3.9)	Run actions/setup-python@v5	2026-11-14T20:42:31.7535835Z   token: ***
+test (3.9)	Run actions/setup-python@v5	2026-11-14T20:42:31.7536238Z   update-environment: true
+test (3.9)	Run actions/setup-python@v5	2026-11-14T20:42:31.7536704Z   allow-prereleases: false
+test (3.9)	Run actions/setup-python@v5	2026-11-14T20:42:31.7536995Z   freethreaded: false
+test (3.9)	Run actions/setup-python@v5	2026-11-14T20:42:31.7537265Z ##[endgroup]
+test (3.9)	Run actions/setup-python@v5	2026-11-14T20:42:31.8463913Z ##[group]Installed versions
+test (3.9)	Run actions/setup-python@v5	2026-11-14T20:42:31.8547185Z Version 3.9 was not found in the local cache
+test (3.9)	Run actions/setup-python@v5	2026-11-14T20:42:31.8671635Z (node:2185) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+test (3.9)	Run actions/setup-python@v5	2026-11-14T20:42:31.8673097Z (Use `node --trace-deprecation ...` to show where the warning was created)
+test (3.9)	Run actions/setup-python@v5	2026-11-14T20:42:32.6143680Z ##[error]The version '3.9' with architecture 'x64' was not found for Ubuntu 26.04.
+test (3.9)	Run actions/setup-python@v5	The list of all available versions can be found here: https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json

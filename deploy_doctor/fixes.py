@@ -423,6 +423,8 @@ def infra_oom(tags, ctx):
 
 
 def infra_bigger_runner(tags, ctx):
+    if "runner_image" in tags:
+        return None
     fit = 0.7 if "oom" in tags else 0.3
     return _fix(
         "infra", "Move the job to a larger runner",
@@ -464,6 +466,34 @@ def infra_retry(tags, ctx):
         "low", fit, file=WF,
         before="      - run: ./deploy.sh",
         after="      - uses: nick-fields/retry@v3\n        with:\n          timeout_minutes: 10\n          max_attempts: 3\n          command: ./deploy.sh",
+    )
+
+
+def infra_runner_pin(tags, ctx):
+    if "runner_image" not in tags:
+        return None
+    ver = ctx.get("tool_version", "<VERSION>")
+    os_ = ctx.get("runner_os", "the runner image")
+    return _fix(
+        "infra", f"Pin the runner image so `{ver}` is available",
+        f"`ubuntu-latest` moves to a new OS release over time, and {os_} has no build of version {ver}. "
+        "A pinned image keeps the toolchain reproducible.",
+        "low", 0.95, file=WF,
+        before="    runs-on: ubuntu-latest",
+        after="    runs-on: ubuntu-24.04",
+    )
+
+
+def infra_bump_version(tags, ctx):
+    if "runner_image" not in tags:
+        return None
+    ver = ctx.get("tool_version", "<VERSION>")
+    return _fix(
+        "infra", f"Or move off the unavailable version `{ver}`",
+        "If the old version is end-of-life, upgrading is the durable fix. Pin the runner (previous fix) as a stopgap.",
+        "medium", 0.7, file=WF,
+        before=f"          python-version: '{ver}'",
+        after="          python-version: '3.12'",
     )
 
 
@@ -557,7 +587,7 @@ TEMPLATES: Dict[str, List[Template]] = {
     "build": [build_ts, build_ts_pin, build_docker, build_toolchain],
     "test": [test_retry, test_timeout, test_port, test_quarantine],
     "config": [cfg_env, cfg_set_secret, cfg_yaml, cfg_tf, cfg_example],
-    "infra": [infra_oom, infra_bigger_runner, infra_disk, infra_ratelimit, infra_retry, infra_tflock],
+    "infra": [infra_oom, infra_bigger_runner, infra_disk, infra_ratelimit, infra_retry, infra_runner_pin, infra_bump_version, infra_tflock],
     "rollout": [roll_imagepull, roll_verify_image, roll_crashloop, roll_probe, roll_atomic, roll_resources],
 }
 

@@ -78,6 +78,7 @@ RULES: List[Rule] = [
     _r("infra", "Rate limited", r"toomanyrequests|rate limit|429 Too Many Requests", 5, "ratelimit"),
     _r("infra", "Network", r"Could not resolve host|Temporary failure in name resolution|Connection (reset|timed out)|TLS handshake timeout|i/o timeout|50[23] (Bad Gateway|Service Unavailable)", 3, "network"),
     _r("infra", "Terraform state lock", r"Error acquiring the state lock", 6, "tflock"),
+    _r("infra", "Toolchain version not on runner image", r"The version '[^']+' with architecture '[^']+' was not found for|Version [\d.x]+ was not found in the local cache", 6, "runner_image"),
     _r("infra", "Runner lost", r"runner has received a shutdown signal|lost communication with the server|The operation was canceled", 4, "runner"),
     # ---- rollout ----------------------------------------------------------
     _r("rollout", "Image pull", r"ImagePullBackOff|ErrImagePull|Back-off pulling image|Failed to pull image", 6, "imagepull"),

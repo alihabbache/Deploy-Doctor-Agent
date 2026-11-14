@@ -39,7 +39,7 @@ A log that matches nothing returns `unknown` and no fixes. It does not guess.
 ## Honest status
 
 - This is a **proof of concept**: rule-based, offline, deterministic.
-- `samples/` (11 logs) and `samples/holdout/` (6 logs) are labelled in `expected.json` and all pass. I wrote them, so treat that as a smoke test and not a benchmark. Real-world accuracy is unknown.
+- `samples/` (11 logs) and `samples/holdout/` (7 logs, one of them this project's own real CI failure) are labelled in `expected.json` and all pass. I wrote them, so treat that as a smoke test and not a benchmark. Real-world accuracy is unknown.
 - Diffs are **templates** with placeholders (for example `<ACCOUNT_ID>`). They are not patches against your real files.
 - Confidence is match strength, capped at 95%. It is not a probability.
 - Fixes are proposals. Nothing is applied automatically. Each carries a risk level.

@@ -19,6 +19,7 @@ PATTERNS: List[Tuple[str, str]] = [
     ("iam_action", r"not authorized to perform: ([\w:*]+)"),
     ("maven_artifact", r"Could not find artifact ([\w.\-]+:[\w.\-]+:[\w.\-]+:[\w.\-]+)"),
     ("image", r'(?:Failed to pull image|pulling image|Back-off pulling image) \\?"([^"\\]+)'),
+    ("tool_version", r"The version '([^']+)' with architecture '[^']+' was not found for (.+?)\.?$"),
     ("image_missing", r"(failed to resolve reference.*not found|manifest unknown|manifest for .* not found)"),
     ("deployment", r'deployment "([^"]+)"'),
     ("test_name", r"FAILED ([\w/.\-]+::[\w:\[\]\-]+)"),
@@ -45,6 +46,8 @@ def extract(log: Log) -> Dict[str, str]:
                 continue
             if name == "peer_pkg":
                 found["peer_pkg"], found["peer_range"] = m.group(1), m.group(2)
+            elif name == "tool_version":
+                found["tool_version"], found["runner_os"] = m.group(1), m.group(2)
             elif name == "resolving":
                 found["resolving"], found["resolving_ver"] = m.group(1), m.group(2)
             elif name == "ts_error":
